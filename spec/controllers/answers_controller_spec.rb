@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
 	let(:question) {create(:question)}
-	before { @answer = question.answers.build(body: "Lorem ipsum") }
+	let(:answer) {create(:answer)}
+  let(:questions) {Question.all}
 	
 
 	describe 'POST #create' do
 		context 'with valid attributes' do
-			it 'saves the new answer to the database' do
-				expect { post :create, answer: attributes_for(:answer), question_id: question}.to change(Answer, :count).by(1)
+			it 'added the new answer to his question' do
+				expect { post :create, answer: attributes_for(:answer), question_id: question}.to change(question.answers, :count).by(1)
 			end
 
 			it 'redirect to show template' do

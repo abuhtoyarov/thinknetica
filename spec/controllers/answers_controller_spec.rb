@@ -3,10 +3,12 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
 	let(:question) {create(:question)}
 	let(:answer) {create(:answer)}
-  let(:questions) {Question.all}
+
 	
 
 	describe 'POST #create' do
+		sign_in_user
+
 		context 'with valid attributes' do
 			it 'added the new answer to his question' do
 				expect { post :create, answer: attributes_for(:answer), question_id: question}.to change(question.answers, :count).by(1)

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+	let(:question) {create(:question)}
+
 	describe 'GET #index' do
 		let(:questions) {Question.all}
 
@@ -17,7 +19,6 @@ RSpec.describe QuestionsController, type: :controller do
 
 
 	describe 'GET #show' do
-		let(:question) {create(:question)}
 
 		before {get :show, id: question}
 
@@ -31,6 +32,8 @@ RSpec.describe QuestionsController, type: :controller do
 	end
 
 	describe 'GET #new' do
+		sign_in_user
+
 		before {get :new}
 
 		it 'assigns new Question to @question' do
@@ -42,7 +45,21 @@ RSpec.describe QuestionsController, type: :controller do
 		end
 	end
 
+	describe 'GET edit' do
+		sign_in_user
+
+		it 'assigns the requested Question to @question' do			
+			expect(assigns(:question)).to eq(question)
+		end
+
+		it 'render edit view' do
+			expect(response).to render_template :edit
+		end	
+	end
+
 	describe 'POST #create' do
+		sign_in_user
+
 		context 'with valid attributes' do
 			it 'saves the new question to the database' do
 				expect { post :create, question: attributes_for(:question)}.to change(Question, :count).by(1)
@@ -65,6 +82,58 @@ RSpec.describe QuestionsController, type: :controller do
 				expect(response).to render_template :new
 			end
 
+		end
+	end
+
+	describe 'PATCH #update' do
+		sign_in_user
+
+		context 'with valid attributes' do
+
+			it 'assigns the requested Question to @question' do
+				patch :update, id: question, question: attributes_for(:question)			
+				expect(assigns(:question)).to eq(question)
+			end
+
+			it 'changes question attributes' do
+				patch :update, id: question, question: {title: 'New title', body: 'New body'}			
+				question.reload
+				expect(question.title).to eq 'New title'
+				expect(question.body).to eq 'New body'
+			end
+
+			it 'redirect to the updated question' do
+				patch :update, id: question, question: attributes_for(:question)
+				expect(response).to redirect_to question
+			end
+		end
+
+		context 'with invalid attributes' do
+
+			before {patch :update, id: question, question: {title: 'New title', body: nil}}
+			it 'does not change question attributes' do
+				question.reload
+				expect(question.title).to eq 'MyString'
+				expect(question.body).to eq 'MyText is very cool'
+			end
+
+			it 'render #edit template' do
+				expect(response).to render_template :edit
+			end
+		end
+	end
+
+	describe 'DELETE #destroy' do
+		sign_in_user
+		
+		it 'delete question' do
+			question
+			expect { delete :destroy, id: question}.to change(Question, :count).by(-1)
+		end
+
+		it 'redirect to index view' do
+			delete :destroy, id: question
+			expect(response).to redirect_to questions_path
 		end
 	end
 end

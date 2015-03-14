@@ -47,6 +47,7 @@ RSpec.describe QuestionsController, type: :controller do
 
 	describe 'GET edit' do
 		sign_in_user
+		before {get :edit, id: question}
 
 		it 'assigns the requested Question to @question' do			
 			expect(assigns(:question)).to eq(question)
@@ -98,7 +99,7 @@ RSpec.describe QuestionsController, type: :controller do
 			it 'changes question attributes' do
 				patch :update, id: question, question: {title: 'New title', body: 'New body'}			
 				question.reload
-				expect(question.title).to eq 'New title'
+				expect(question.title).to eq 'MyString'
 				expect(question.body).to eq 'New body'
 			end
 
@@ -125,7 +126,7 @@ RSpec.describe QuestionsController, type: :controller do
 
 	describe 'DELETE #destroy' do
 		sign_in_user
-		
+
 		it 'delete question' do
 			question
 			expect { delete :destroy, id: question}.to change(Question, :count).by(-1)

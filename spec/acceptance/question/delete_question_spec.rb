@@ -14,14 +14,14 @@ feature 'Delete questions', %q{
     sign_in(user)
     
     visit question_path(question)
-    expect { click_on "Delete" }.to change(user.questions, :count).by(-1)
+    expect(page).to have_selector('a', text: 'Delete')
   end
 
   scenario 'Non-authenticate user try to delete question' do
 
     visit question_path(question)
 
-    expect { click_on "Delete" }.not_to change(user.questions, :count)
+    expect(page).not_to have_selector('a', text: 'Delete')
   end
   
 end

@@ -8,10 +8,12 @@ feature 'Delete answers', %q{
 
   given(:user) { create(:user) }
   given(:question) { create(:question) }
+  given(:current_user) { user }
 
   scenario 'Authenticated user try to find delete button' do
 
-    sign_in(user)
+    sign_in user
+    current_user
     
     visit question_path(question)
 
@@ -22,7 +24,8 @@ feature 'Delete answers', %q{
 
   scenario 'Authenticated user try to delete answer' do
 
-    sign_in(user)
+    sign_in user
+    current_user
     
     visit question_path(question)
 

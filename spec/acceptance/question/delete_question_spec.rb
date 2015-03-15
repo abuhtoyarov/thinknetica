@@ -14,14 +14,19 @@ feature 'Delete questions', %q{
     sign_in(user)
     
     visit question_path(question)
-    expect(page).to have_selector('a', text: 'Delete')
+
+    question.answers.each do |answer|
+      expect(page).to have_selector('a', text: 'Delete question')
+    end 
   end
 
   scenario 'Non-authenticate user try to delete question' do
 
     visit question_path(question)
 
-    expect(page).not_to have_selector('a', text: 'Delete')
+    question.answers.each do |answer|
+      expect(page).not_to have_selector('a', text: 'Delete question')
+    end    
   end
   
 end

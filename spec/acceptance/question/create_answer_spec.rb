@@ -21,9 +21,8 @@ feature 'Create answers', %q{
   scenario 'Non-authenticated user try to add answer' do
 
     visit question_path(question)
-    fill_in 'Body', with: 'Testing body'
 
-    expect { click_button "Create" }.not_to change(question.answers, :count)
+    expect(page).not_to have_selector('button', text: 'Create')
   end
   
 end

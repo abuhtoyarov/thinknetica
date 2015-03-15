@@ -9,7 +9,7 @@ feature 'Delete answers', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
-  scenario 'Authenticated user try to delete answer' do
+  scenario 'Authenticated user try to find delete button' do
 
     sign_in(user)
     
@@ -20,7 +20,18 @@ feature 'Delete answers', %q{
     end
   end
 
-  scenario 'Non-authenticate user try to delete answer' do
+  scenario 'Authenticated user try to delete answer' do
+
+    sign_in(user)
+    
+    visit question_path(question)
+
+    question.answers.each do |answer|
+      expect { click_link "Delete answer" }.to change(question.answers, :count).by(-1)
+    end
+  end
+
+  scenario 'Non-authenticate user try to find delete button' do
 
     visit question_path(question)
 

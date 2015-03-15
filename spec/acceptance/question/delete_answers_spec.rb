@@ -13,7 +13,7 @@ feature 'Delete answers', %q{
   scenario 'Authenticated user try to find delete button' do
 
     sign_in user
-    current_user
+    current_user 
     
     visit question_path(question)
 
@@ -26,7 +26,7 @@ feature 'Delete answers', %q{
 
     sign_in user
     current_user
-    
+
     visit question_path(question)
 
     question.answers.each do |answer|

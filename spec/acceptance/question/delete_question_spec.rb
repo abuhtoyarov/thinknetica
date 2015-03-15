@@ -7,26 +7,21 @@ feature 'Delete questions', %q{
 } do 
 
   given(:user) { create(:user) }
-  given(:question) { create(:question) }
+  given(:question) { create(:question, user: user) }
 
   scenario 'Authenticated user try to delete question' do
 
     sign_in(user)
     
     visit question_path(question)
-
-    question.answers.each do |answer|
-      expect(page).to have_selector('a', text: 'Delete question')
-    end 
+    expect(page).to have_selector('a', text: 'Delete question')
   end
 
   scenario 'Non-authenticate user try to delete question' do
 
     visit question_path(question)
-
-    question.answers.each do |answer|
-      expect(page).not_to have_selector('a', text: 'Delete question')
-    end    
+    
+    expect(page).not_to have_selector('a', text: 'Delete question')
   end
   
 end

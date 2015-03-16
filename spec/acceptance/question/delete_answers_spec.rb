@@ -7,8 +7,7 @@ feature 'Delete answers', %q{
 } do 
 
   given(:user) { create(:user) }
-  given(:question) { create(:question) }
-  given(:current_user) { user }
+  given(:question) { create(:question, user: user) }
 
   scenario 'Authenticated user try to find delete button' do
 

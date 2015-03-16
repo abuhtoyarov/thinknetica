@@ -23,5 +23,14 @@ feature 'Viewing question and answers', %q{
       expect(page).to have_selector('div', text: answer.body)
     end
   end
+
+  scenario 'User must see answers list' do
+
+    visit question_path(question)
+
+    question.answers.each do |answer|
+      expect(page).not_to have_selector('div', text: answer.body)
+    end
+  end
   
 end

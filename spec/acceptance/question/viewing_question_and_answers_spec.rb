@@ -15,7 +15,7 @@ feature 'Viewing question and answers', %q{
     expect(page).to have_content question.title
   end
 
-  scenario 'User must see answers list' do
+  scenario 'User can see answers list' do
 
     visit question_path(question)
 
@@ -24,13 +24,11 @@ feature 'Viewing question and answers', %q{
     end
   end
 
-  scenario 'User must see answers list' do
+  scenario 'User not see answers list' do
 
     visit question_path(question)
 
-    question.answers.each do |answer|
-      expect(page).not_to have_selector('div', text: answer.body)
-    end
+    expect(page).to have_content('No comments here')
   end
   
 end

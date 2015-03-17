@@ -5,6 +5,7 @@ h1= @question.title
 if @question.answers.empty?
   No comments here  
 else
+  h3 Comments
   - @question.answers.each do |answer|
     div= answer.body
     - if current_user

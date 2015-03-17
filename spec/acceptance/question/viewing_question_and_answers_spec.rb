@@ -19,9 +19,7 @@ feature 'Viewing question and answers', %q{
 
     visit question_path(question)
 
-    question.answers.each do |answer|
-      expect(page).to have_selector('div', text: answer.body)
-    end
+    expect(page).to have_selector('h3', text: 'Comments')
   end
 
   scenario 'User not see answers list' do

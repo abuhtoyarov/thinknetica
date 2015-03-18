@@ -8,49 +8,45 @@ feature 'Delete answers', %q{
 
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
+  given(:answer) { create(:answer, question: question, user: user) }
 
   scenario 'Authenticated user try to find delete button' do
 
-    sign_in user
+    sign_in(user)
      
     
     visit question_path(question)
 
-    question.answers.each do |answer|
+    
+
+    unless question.answers.empty?
       expect(page).to have_selector('a', text: 'Delete answer')
     end
+    
   end
 
   scenario 'Authenticated user try to delete answer' do
 
-    sign_in user
+    sign_in(user)
     
 
     visit question_path(question)
 
-    question.answers.each do |answer|
+    unless question.answers.empty?
       expect { click_link "Delete answer" }.to change(question.answers, :count).by(-1)
     end
+    
   end
 
   scenario 'Non-authenticate user try to find delete button' do
 
     visit question_path(question)
 
-    question.answers.each do |answer|
-      expect(page).not_to have_selector('a', text: 'Delete answer')
-    end
+    
+    expect(page).not_to have_selector('a', text: 'Delete answer')
+    
     
   end
 
-  scenario 'Non-authenticate user try to delete answer' do
-    
-
-    visit question_path(question)
-
-    question.answers.each do |answer|
-      expect { click_link "Delete answer" }.not_to change(question.answers, :count)
-    end
-  end
   
 end

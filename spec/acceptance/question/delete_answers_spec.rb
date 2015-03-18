@@ -39,6 +39,9 @@ feature 'Delete answers', %q{
   end
 
   scenario 'Non-authenticate user try to find delete button' do
+    sign_in(user)
+
+    create(:answer, question_id: question)
 
     visit question_path(question)
 

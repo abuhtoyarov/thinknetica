@@ -17,6 +17,9 @@ feature 'Create answers', %q{
     fill_in 'Body', with: 'Testing body'
 
     expect { click_button "Create" }.to change(question.answers, :count).by(1)
+    within '.answers' do
+      expect(page).to have_content('Testing body')
+    end
   end
 
   scenario 'Non-authenticated user try to add answer' do

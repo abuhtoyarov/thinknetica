@@ -35,7 +35,7 @@ feature 'Delete answers', %q{
     unless question.answers.empty?
       expect { click_link "Delete answer" }.to change(question.answers, :count).by(-1)
     end
-    
+
   end
 
   scenario 'Non-authenticate user try to find delete button' do

@@ -5,7 +5,7 @@ h1= @question.title
 .answers
   - if @question.answers.empty?
     p No comments here  
-  else
+  - else
     h3 Comments
     - @question.answers.each do |answer|
       p= answer.body

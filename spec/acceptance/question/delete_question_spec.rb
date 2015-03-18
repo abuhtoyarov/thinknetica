@@ -20,7 +20,6 @@ feature 'Delete questions', %q{
   scenario 'Authenticate user try to delete question' do
     sign_in(user)
 
-    create(:user, question: question) 
     visit question_path(question)
 
     

@@ -13,28 +13,28 @@ feature 'Delete answers', %q{
   scenario 'Authenticated user try to find delete button' do
 
     sign_in(user)
-     
+    answer 
     
     visit question_path(question)
 
     
 
-    unless question.answers.empty?
-      expect(page).to have_selector('a', text: 'Delete answer')
-    end
+    
+    expect(page).to have_selector('a', text: 'Delete answer')
+    
     
   end
 
   scenario 'Authenticated user try to delete answer' do
 
     sign_in(user)
-    
+    answer
 
     visit question_path(question)
 
-    unless question.answers.empty?
-      expect { click_link "Delete answer" }.to change(question.answers, :count).by(-1)
-    end
+    
+    expect { click_link "Delete answer" }.to change(question.answers, :count).by(-1)
+    
 
   end
 

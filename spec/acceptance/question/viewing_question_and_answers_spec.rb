@@ -7,7 +7,7 @@ feature 'Viewing question and answers', %q{
 } do 
 
   given(:question) { create(:question) }
-
+  given(:answer) { create(:answer, question: question) }
   scenario 'User try to view question title' do
     
     visit question_path(question)

@@ -65,7 +65,7 @@ RSpec.describe AnswersController, type: :controller do
 			id: answer, 
 			question_id: question,
 			format: :js
-			expect(response).to render_template :destroy
+			expect(response).to render_template :create
 		end
 	end
 end

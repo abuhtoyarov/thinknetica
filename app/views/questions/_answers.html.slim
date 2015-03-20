@@ -1,7 +1,7 @@
 h3 Comments
 - @question.answers.each do |answer|
   p= answer.body
-  - if answer.user == current_user && current_user != nil
+  - if answer.user == current_user && current_user.present?
     = link_to 'Delete answer', [answer.question, answer], method: :delete, remote: true
 
   

@@ -13,6 +13,7 @@ class AnswersController < ApplicationController
 	def destroy
     @answer = @question.answers.find(params[:id])
     @answer.destroy
+    render 'create'
   end
 
 	private

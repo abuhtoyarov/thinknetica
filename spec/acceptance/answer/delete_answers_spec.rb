@@ -37,7 +37,7 @@ feature 'Delete answers', %q{
     sign_in(user)
 
     visit question_path(question)
-    create(:answer, question: question)
+    
     
     expect(page).not_to have_selector('a', text: 'Delete answer')
     

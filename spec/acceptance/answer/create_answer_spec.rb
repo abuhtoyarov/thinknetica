@@ -6,20 +6,22 @@ feature 'Create answers', %q{
   I want to be able to ask answers
 } do 
 
-  given(:user) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given!(:user) { create(:user) }
+  given!(:question) { create(:question) }
   
 
-  scenario 'Authenticated user try to add answer' do
+  scenario 'Authenticated user try to add answer', js: true do
     sign_in(user)
 
     visit question_path(question)
-    fill_in 'Body', with: 'Testing body'
+    fill_in 'Answer', with: 'Testing body'
+    click_on 'Create'
 
-    expect { click_button "Create" }.to change(question.answers, :count).by(1)
+    
     within '.answers' do
       expect(page).to have_content('Testing body')
     end
+    expect(current_path).to eq question_path(question)
   end
 
   scenario 'Non-authenticated user try to add answer' do

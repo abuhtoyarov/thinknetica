@@ -22,7 +22,6 @@ feature 'Delete questions', %q{
 
     visit question_path(question)
 
-    
     expect { click_link "Delete question" }.to change(Question, :count).by(-1)
     
   end

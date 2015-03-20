@@ -6,8 +6,7 @@ feature 'Viewing questions', %q{
   I want to visit page with all questions list
 } do 
 
-  given(:questions) { Question.all  }
-  given(:question) { create(:question) }
+  given!(:question) { create(:question) }
   
   scenario 'User try to view all questions' do
     
@@ -20,9 +19,8 @@ feature 'Viewing questions', %q{
 
     visit questions_path
 
-    unless questions.empty?
-      expect(page).to have_selector('a', text: question.title)
-    end
+    expect(page).to have_selector('a', text: question.title)
+    
   end
   
 end

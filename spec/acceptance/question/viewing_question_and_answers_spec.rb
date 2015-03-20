@@ -8,6 +8,7 @@ feature 'Viewing question and answers', %q{
 
   given(:question) { create(:question) }
   given(:answer) { create(:answer, question: question) }
+  
   scenario 'User try to view question title' do
     
     visit question_path(question)
@@ -15,18 +16,15 @@ feature 'Viewing question and answers', %q{
     expect(page).to have_content question.title
   end
 
+
   scenario 'User can see answers list' do
+    answer
 
     visit question_path(question)
+    
 
-    expect(page).to have_selector('h3', text: 'Comments')
+    expect(page).to have_content(answer.body)
   end
 
-  scenario 'User not see answers list' do
-
-    visit question_path(question)
-
-    expect(page).to have_content('No comments here')
-  end
   
 end

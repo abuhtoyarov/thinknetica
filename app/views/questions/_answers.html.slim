@@ -1,7 +1,7 @@
 h3 Comments
 - @question.answers.each do |answer|
   p= answer.body
-  - if user_signed_in?
-    = link_to 'Delete answer', question_answer_path(@question, answer.id), method: :delete, remote: true
+  - if answer.user == current_user && user_signed_in?
+    = link_to 'Delete answer', [answer.question, answer], method: :delete, remote: true
 
   

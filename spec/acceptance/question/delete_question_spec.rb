@@ -6,19 +6,22 @@ feature 'Delete questions', %q{
   I want to delete my questions
 } do 
 
+  given(:author) { create(:user) }
   given(:user) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given(:question) { create(:question, user: author) }
 
   scenario 'Authenticated user try to delete question' do
 
-    sign_in(user)
-    
+    sign_in(author)
+    question
+
     visit question_path(question)
     expect(page).to have_selector('a', text: 'Delete question')
   end
 
   scenario 'Authenticate user try to delete question' do
-    sign_in(user)
+    sign_in(author)
+    question
 
     visit question_path(question)
 
@@ -26,7 +29,8 @@ feature 'Delete questions', %q{
     
   end
 
-  scenario 'Non-authenticate user try to delete question' do
+  scenario 'Non-author try to delete question' do
+    sign_in(user)
 
     visit question_path(question)
 

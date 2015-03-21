@@ -16,12 +16,13 @@ gem 'devise'
 group :development, :test do
   
   gem 'byebug'
-  gem 'selenium-webdriver'
+  #gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'capybara-webkit'
 end
 
 group :test do

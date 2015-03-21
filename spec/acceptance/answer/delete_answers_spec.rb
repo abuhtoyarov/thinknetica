@@ -8,7 +8,7 @@ feature 'Delete answers', %q{
 
   given(:author) { create(:user) }
   given(:user) { create(:user) }
-  given(:question) { create(:question, user: author) }
+  given!(:question) { create(:question, user: author) }
   given(:answer) { create(:answer, question: question, user: author) }
 
   scenario 'Authenticated user try to find delete button' do

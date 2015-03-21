@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
 feature 'Delete answers', %q{
   If I did't want to see my answers anymore
@@ -9,7 +9,7 @@ feature 'Delete answers', %q{
   given(:author) { create(:user) }
   given(:user) { create(:user) }
   given(:question) { create(:question, user: author) }
-  given(:answer) { create(:answer, question: question, user: author) }
+  given(:answer) { create(:answer, question: question, user_id: author.id) }
 
   scenario 'Authenticated user try to find delete button' do
 
@@ -29,7 +29,7 @@ feature 'Delete answers', %q{
     answer
 
     visit question_path(question)
-    
+
     expect { click_link "Delete answer" }.to change(question.answers, :count).by(-1) 
 
   end

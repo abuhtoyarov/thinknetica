@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
 feature 'Viewing question and answers', %q{
   If I want to view question and his answers

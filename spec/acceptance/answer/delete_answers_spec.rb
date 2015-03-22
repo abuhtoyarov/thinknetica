@@ -9,12 +9,12 @@ feature 'Delete answers', %q{
   given(:author) { create(:user) }
   given(:user) { create(:user) }
   given!(:question) { create(:question, user: author) }
-  given(:answer) { create(:answer, question: question, user: author) }
+  given!(:answer) { create(:answer, question: question, user: author) }
 
   scenario 'Authenticated user try to find delete button' do
 
     sign_in(author)
-    answer 
+     
     
     visit question_path(question)
 
@@ -26,7 +26,7 @@ feature 'Delete answers', %q{
   scenario 'Authenticated user try to delete answer', js: true do
 
     sign_in(author)
-    answer
+    
 
     visit question_path(question)
 
@@ -36,12 +36,12 @@ feature 'Delete answers', %q{
 
   scenario 'Non-author try to delete button' do
     sign_in(user)
-    answer
+    
 
     visit question_path(question)
     
     
-    expect(page).not_to have_selector('a', text: 'Delete answer')
+    expect(page).to_not have_selector('a', text: 'Delete answer')
     
     
   end
@@ -52,7 +52,7 @@ feature 'Delete answers', %q{
     visit question_path(question)
     
     
-    expect(page).not_to have_selector('a', text: 'Delete answer')
+    expect(page).to_not have_selector('a', text: 'Delete answer')
     
     
   end

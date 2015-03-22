@@ -8,7 +8,7 @@ feature 'Delete questions', %q{
 
   given(:author) { create(:user) }
   given(:user) { create(:user) }
-  given(:question) { create(:question, user: author) }
+  given!(:question) { create(:question, user: author) }
 
   scenario 'Authenticated user try to delete question' do
 

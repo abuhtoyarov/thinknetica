@@ -1,7 +1,7 @@
 require_relative '../acceptance_helper'
 
 feature 'Create answers', %q{
-  If I want to answer the question
+  If I want to create answer the question
   As an authenticate user
   I want to be able to ask answers
 } do 
@@ -28,7 +28,18 @@ feature 'Create answers', %q{
 
     visit question_path(question)
 
-    expect(page).not_to have_selector('button', text: 'Create')
+    expect(page).to_not have_selector('button', text: 'Create')
   end
-  
+
+  scenario 'User try to add answer without text', js: true do
+    
+    sign_in(user)
+
+    visit question_path(question)
+
+    click_on 'Create'
+
+    expect(page).to have_content("Body is too short (minimum is 10 characters)")
+  end
+
 end

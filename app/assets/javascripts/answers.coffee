@@ -7,3 +7,9 @@ $ ->
     $(this).hide()
     answer_id = $(this).data('answerId')
     $('form#edit-answer-' + answer_id).show()
+
+  $('.best-link').click (e) ->
+    e.preventDefault()
+    $(this).hide()
+    answer_id = $(this).data('answerId')
+    $("#answer-list").prepend($('li.answer-' + answer_id))

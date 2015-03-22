@@ -10,5 +10,5 @@ h1= @question.title
   = form_for [@question, @answer], remote: true do |f|
     = f.label :body, 'Answer'
     .answer-errors
-    = f.text_area :body
-    = f.submit 'Create'
+      = f.text_area :body
+      = f.submit 'Create'

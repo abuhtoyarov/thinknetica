@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
 
 	def create
 		@answer = @question.answers.new(answer_params)
+    @answer.user = current_user
 		@answer.save
 	end
 
@@ -19,6 +20,10 @@ class AnswersController < ApplicationController
     @answer = @question.answers.find(params[:id])
     @answer.destroy
     render 'create'
+  end
+
+  def best_choice
+    @answer = Answer.find(params[:id])
   end
 
 	private
